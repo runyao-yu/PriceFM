@@ -1,0 +1,5 @@
+*.pkl
+*.csv
+*.keras
+*.pdf
+__pycache__

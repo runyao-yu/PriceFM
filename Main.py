@@ -37,7 +37,7 @@ look_back_windows = [-24] # the last 24 hours of data as input. [-24, -23, ...-1
 prediction_horizons = [23] # the next 24 hours to predict / look-forward window size for load, solar, and wind. [0, 1, ...23]
 
 # seeds for randomness [can change]
-seeds = [42, 42, 42] 
+seeds = [42] 
 
 # run the optimal model or ablation study [can change]
 select_modes = ['optimal']

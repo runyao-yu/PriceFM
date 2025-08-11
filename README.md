@@ -1,5 +1,7 @@
 # PriceFM
-Foundation Model for Probabilistic Electricity Price Forecasting
+Foundation Model for Probabilistic Day-Ahead Electricity Price Forecasting
+
+📄 Paper link: https://www.arxiv.org/pdf/2508.04875
 
 ![Description of Image](Model/model_structure.PNG)
 
