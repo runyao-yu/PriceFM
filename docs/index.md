@@ -18,7 +18,7 @@ description: Foundation Model for Probabilistic Day-Ahead Electricity Price Fore
 **Authors:** Runyao Yu, Chenhui Gu, Jochen Stiasny, Qingsong Wen, Wasim Sarwar Dilov, Lianlian Qi, Jochen L. Cremer
 
 ## Abstract
-We introduce a comprehensive and up-to-date dataset across 24 European countries (38 regions), spanning from 2022-01-01 to 2025-01-01. 
+We introduce a comprehensive and up-to-date dataset across 24 European countries (38 regions), spanning from 2022 to 2025. 
 
 Building on this groundwork, we propose PriceFM, a spatiotemporal foundation model that integrates graph-based inductive biases to capture spatial interdependencies across interconnected electricity markets. The model is designed for multi-region, multi-timestep, and multi-quantile probabilistic electricity price forecasting. 
 
