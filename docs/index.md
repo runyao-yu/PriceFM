@@ -3,11 +3,11 @@ title: PriceFM
 description: Foundation Model for Probabilistic Day-Ahead Electricity Price Forecasting
 ---
 
-![Affiliations](assets/affiliations.PNG){: style="float:left; height:200px;" }
+![Affiliations](assets/affiliations.PNG){: style="float:left; height:120px;" }
 <div style="clear:both;"></div>
 
+![teaser](assets/Trade.gif){: style="float:right; height:84px; margin-left:12px;" }
 # PriceFM: Foundation Model for Probabilistic Day-Ahead Electricity Price Forecasting
-![teaser](assets/Trade.gif){: style="float:left; height:128px;" }
 <div style="clear:both;"></div>
 
 [![arXiv](https://img.shields.io/badge/arXiv-2502.06830-b31b1b.svg)](https://www.arxiv.org/abs/2508.04875)
