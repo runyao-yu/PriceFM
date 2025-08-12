@@ -13,7 +13,7 @@ description: Foundation Model for Probabilistic Day-Ahead Electricity Price Fore
 [![Email](https://img.shields.io/badge/Email-Contact-D14836?logo=gmail&logoColor=white)](mailto:runyao.yu@tudelft.nl)
 
 **Authors:** Runyao Yu, Chenhui Gu, Jochen Stiasny, Qingsong Wen, Wasim Sarwar Dilov, Lianlian Qi, Jochen L. Cremer
-![Affiliations](assets/affiliations.PNG){: style="float:left; height:100px;" }
+![Affiliations](assets/affiliations.PNG){: style="float:left; height:140px;" }
 <div style="clear:both;"></div>
 
 ## Abstract
