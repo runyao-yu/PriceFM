@@ -3,9 +3,6 @@ title: PriceFM
 description: Foundation Model for Probabilistic Day-Ahead Electricity Price Forecasting
 ---
 
-![Affiliations](assets/affiliations.PNG){: style="float:left; height:120px;" }
-<div style="clear:both;"></div>
-
 ![teaser](assets/Trade.gif){: style="float:right; height:84px; margin-left:12px;" }
 # PriceFM: Foundation Model for Probabilistic Day-Ahead Electricity Price Forecasting
 <div style="clear:both;"></div>
@@ -16,6 +13,8 @@ description: Foundation Model for Probabilistic Day-Ahead Electricity Price Fore
 [![Email](https://img.shields.io/badge/Email-Contact-D14836?logo=gmail&logoColor=white)](mailto:runyao.yu@tudelft.nl)
 
 **Authors:** Runyao Yu, Chenhui Gu, Jochen Stiasny, Qingsong Wen, Wasim Sarwar Dilov, Lianlian Qi, Jochen L. Cremer
+![Affiliations](assets/affiliations.PNG){: style="float:left; height:100px;" }
+<div style="clear:both;"></div>
 
 ## Abstract
 We introduce a comprehensive and up-to-date dataset across 24 European countries (38 regions), spanning from 2022 to 2025. 
