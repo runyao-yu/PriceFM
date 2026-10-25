@@ -2,7 +2,7 @@
 
 An Open-Source Deep Neural Network for Day-Ahead Price Forecasting 🏆
 
-Our **[project page](Project_page/index.html)** shows the model structure, European electricity data, [results tables](Project_page/index.html#results), and [interactive forecasts for 40 regions](Project_page/index.html#forecasts).
+Our **[project page](https://runyao-yu.com/PriceFM/)** shows the model structure, European electricity data, results tables, and interactive forecasts for 40 regions.
 
 ![Structure of PriceFM+ and its component ablations](Project_page/images/model_figure.svg)
 
@@ -16,7 +16,7 @@ Our **[project page](Project_page/index.html)** shows the model structure, Europ
 
 The raw and processed data, model weights, and forecasts are available from the public [European_Foundation_Model_DAM dataset on Hugging Face](https://huggingface.co/datasets/RunyaoYu/European_Foundation_Model_DAM).
 
-These data are provided for research purposes only. The raw electricity data can also be downloaded from the ENTSO-E Transparency Platform. We provide [data collection code](src/PriceFM_Plus/data_pipeline/download.py) that queries the ENTSO-E API and adds new dates through `PriceFM_Plus.add_data()`. Users must apply for their own ENTSO-E API key.
+These data are provided for research purposes only. The raw electricity data can also be downloaded from the ENTSO-E Transparency Platform. We provide data collection code that queries the ENTSO-E API and adds new dates through `PriceFM_Plus.add_data()`. Users must apply for their own ENTSO-E API key.
 
 ## 🚀 Repository
 
@@ -50,7 +50,7 @@ To install from this repository instead, run `python -m pip install -e .`. Optio
 import PriceFM_Plus
 
 PriceFM_Plus.download_data("processed")
-PriceFM_Plus.download_weights("PriceFM_Plus")
+PriceFM_Plus.download_weights("PriceFM_Plus")    # MLP, LSTM, Transformer, etc. are also available
 PriceFM_Plus.download_forecasts("PriceFM_Plus")  # MLP, LSTM, Transformer, etc. are also available
 
 # Extend the data with your own ENTSO-E API key.
