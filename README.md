@@ -1,51 +1,100 @@
-# PriceFM_Plus
+# PriceFM
 
-Python tools for reproducing European day-ahead electricity price forecasting results. The public data, model weights, and saved forecasts are hosted in the [European_Foundation_Model_DAM dataset](https://huggingface.co/datasets/RunyaoYu/European_Foundation_Model_DAM). This repository contains the installable code and a [step-by-step Jupyter tutorial](tutorials/PriceFM_Plus_tutorial.ipynb) with saved verification outputs beneath each example.
+An Open-Source Deep Neural Network for Day-Ahead Price Forecasting 🏆
 
-## Install
+Our **[project page](Project_page/index.html)** shows the model structure, European electricity data, [results tables](Project_page/index.html#results), and [interactive forecasts for 40 regions](Project_page/index.html#forecasts).
 
-The package is version `0.1.0`. Until it is published to a Python package index, install the verified wheel directly:
+![Structure of PriceFM+ and its component ablations](Project_page/images/model_figure.svg)
+
+## 📢 News
+
+**26 Oct 2026.** PriceFM+ is upgraded from v1 to v2. The updated model uses looped cross-attention, incorporates cross-border power flows, and is benchmarked against the latest generic foundation models.
+
+**6 Aug 2025.** PriceFM was created as the first European-level pretrained foundation model for day-ahead electricity price forecasting.
+
+## 💾 Data and weights
+
+The raw and processed data, model weights, and forecasts are available from the public [European_Foundation_Model_DAM dataset on Hugging Face](https://huggingface.co/datasets/RunyaoYu/European_Foundation_Model_DAM).
+
+These data are provided for research purposes only. The raw electricity data can also be downloaded from the ENTSO-E Transparency Platform. We provide [data collection code](src/PriceFM_Plus/data_pipeline/download.py) that queries the ENTSO-E API and adds new dates through `PriceFM_Plus.add_data()`. Users must apply for their own ENTSO-E API key.
+
+## 🚀 Repository
+
+    ├── src/PriceFM_Plus/                 installable package, data collection, modeling, and evaluation
+    ├── tutorials/                       Jupyter tutorial with saved example results
+    ├── Project_page/                    project page and interactive forecast viewer
+    ├── pyproject.toml                   package metadata and dependencies
+    └── README.md
+
+The [Jupyter tutorial](tutorials/PriceFM_Plus_tutorial.ipynb) shows how to download the released files, reproduce results, and train a customized model.
+
+## 🧰 Required packages
+
+- Python 3.10 or newer
+- NumPy 1.24 or newer
+- pandas 2.0 or newer
+- huggingface_hub 0.30 or newer
+- tqdm 4.65 or newer
+
+Install version 0.1.0 directly from the released wheel:
 
 ```bash
 python -m pip install "https://huggingface.co/datasets/RunyaoYu/European_Foundation_Model_DAM/resolve/main/pricefm_plus-0.1.0-py3-none-any.whl"
 ```
 
-Alternatively, from this repository:
+To install from this repository instead, run `python -m pip install -e .`. Optional dependencies for training, figure generation, and foundation-model inference are listed in [pyproject.toml](pyproject.toml).
 
-```bash
-python -m pip install -e .
-```
-
-Install optional dependencies only for the work you intend to run: `.[figures]` for figure generation, `.[train]` for trained-model inference and custom training, or the model-specific extras `.[chronos]`, `.[timesfm]`, `.[tabpfn]`, and `.[tirex]` for foundation-model inference. A GPU is useful for full inference and training.
-
-## Reproduce saved results
-
-Run these commands from the directory where you want the outputs. Downloads create `Data`, `Weights`, and `Forecasts` folders there. The archives are large, so start with only the resources you need.
+## Package functions
 
 ```python
 import PriceFM_Plus
 
 PriceFM_Plus.download_data("processed")
-PriceFM_Plus.download_forecasts("PriceFM_Plus")
 PriceFM_Plus.download_weights("PriceFM_Plus")
+PriceFM_Plus.download_forecasts("PriceFM_Plus")  # MLP, LSTM, Transformer, etc. are also available
+
+# Extend the data with your own ENTSO-E API key.
+PriceFM_Plus.add_data(start_date, end_date, entsoe_api_key)
+
+# Reproduce forecasts from saved weights, metrics from downloaded forecasts,
+# and figures from the released plotting data.
+PriceFM_Plus.reproduce_forecasts("PriceFM_Plus")
+PriceFM_Plus.reproduce_metrics()  # Download all forecast archives and processed data first
+PriceFM_Plus.reproduce_figures()
+
+# Train and evaluate a custom configuration.
+PriceFM_Plus.customize(dates, feature_case="Realistic", regions=regions, hyperparams=hyperparams)
 ```
 
-To reproduce the paper's comparison table **without inference**, download the saved forecasts for `MLP`, `LSTM`, `Transformer`, `PriceFM_Plus`, `TabPFN_TS_3`, `TiRex_2`, `TimesFM_3`, `Chronos_2`, and `Persistence`, then call `PriceFM_Plus.reproduce_metrics()`. This reads saved forecasts and observed prices and writes `Metrics/table3.csv` with pinball loss, interval score, MAE, and RMSE.
+See the [Jupyter tutorial](tutorials/PriceFM_Plus_tutorial.ipynb) for prerequisites, examples, and saved results.
 
-For the five grouped figures and four ablation panels, install `.[figures]` and call `PriceFM_Plus.reproduce_figures()`. It regenerates the PDFs in `Figures` from the released plotting source and **derived figure-input tables**. It does not recalculate those figure-input tables from the raw data.
+## 📖 Citation
 
-To rerun an archived trained model on the original held-out folds, install `.[train]`, download processed data and that model's weights, then call `PriceFM_Plus.reproduce_forecasts("PriceFM_Plus")`. The default covers the Realistic, TSO, and Oracle feature cases and test folds 1–3. Fold 4 has validation weights but no held-out test forecast. Foundation-model inference uses the corresponding optional extra. Where checkpoint redistribution is unavailable, the function asks before downloading pinned upstream weights and prompts for a token only if access requires one.
+If you find our work useful or use our forecasts, please cite us.
 
-## Extend data or train
+PriceFM+:
 
-`PriceFM_Plus.add_data(start_date, end_date, entsoe_api_key)` fetches new ENTSO-E records and extends the local raw and processed data. Download processed data first. Store the API key outside notebooks and source control.
+```bibtex
+@misc{YuPriceFMPlus2026,
+  title  = {Training Paradigms and Foundation Models for European Electricity Price Forecasting},
+  author = {Runyao Yu and Derek W. Bunn and Rafal Weron and Jalal Kazempour and Pierre Pinson and Takuji Matsumoto and Peter Palensky and Ricardo Jorge Bessa and Qingsong Wen and Jochen L. Cremer},
+  year   = {2026},
+  note   = {Manuscript in preparation}
+}
+```
 
-`PriceFM_Plus.customize(dates, feature_case, regions, hyperparams)` trains, validates, tests, and prints region-level metrics. `dates` contains six boundaries: training start/end, validation start/end, and test start/end. End dates are exclusive. `feature_case` is `Realistic`, `TSO`, or `Oracle`. Omitted hyperparameters use the paper settings. See the tutorial for a small example.
+PriceFM:
 
-## Repository contents
+```bibtex
+@misc{YuPriceFM,
+  title         = {PriceFM: Foundation Model for Probabilistic Electricity Price Forecasting},
+  author        = {Runyao Yu and Chenhui Gu and Jochen Stiasny and Qingsong Wen and Wasim Sarwar Dilov and Lianlian Qi and Jochen L. Cremer},
+  year         = {2026},
+  eprint        = {2508.04875},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CE},
+  url           = {https://arxiv.org/abs/2508.04875}
+}
+```
 
-- `src/PriceFM_Plus/`: installable package and bundled preprocessing metadata.
-- `tutorials/PriceFM_Plus_tutorial.ipynb`: guided download, reproduction, and customization examples.
-- `pyproject.toml`: package metadata and optional dependencies.
-
-Large research outputs, release ZIPs, local data, drafts, caches, and credentials in the working directory are excluded from Git. No model weights or forecasts are embedded in the package.
+We will keep upgrading PriceFM by adding more features. If you have ideas to improve PriceFM and want to contribute, please contact [ryu@london.edu](mailto:ryu@london.edu). If you are interested in other market price forecasting and want to know more, please visit [www.deepprior.com](https://www.deepprior.com).

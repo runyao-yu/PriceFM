@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PriceFM and PriceFM+: open-source probabilistic day-ahead electricity price forecasting across 40 European regions.">
+  <title>PriceFM: An Open-Source Deep Neural Network for Day-Ahead Price Forecasting</title>
+  <link rel="stylesheet" href="style.css?v=20261025b">
+</head>
+<body>
+<nav class="top" aria-label="Page sections"><div class="wrap">
+  <a class="brand" href="#top">PriceFM</a>
+  <a href="#overview">Overview</a><a href="#features">Features</a><a href="#results">Results</a><a href="#forecasts">Forecasts</a><a href="#cite">Cite</a>
+  <details class="menu"><summary>Paper</summary><div class="menu-list">
+    <a href="https://arxiv.org/abs/2508.04875" target="_blank" rel="noopener">PriceFM (arXiv)</a>
+  </div></details>
+  <a href="https://github.com/runyao-yu/PriceFM" target="_blank" rel="noopener">Code</a>
+</div></nav>
+
+<header class="intro" id="top"><div class="wrap">
+  <h1><span class="title-first">PriceFM: An Open-Source Deep Neural Network</span><span>for Day-Ahead Price Forecasting</span></h1>
+  <div class="meta">
+    <p><strong>Contributors for PriceFM+:</strong> Runyao Yu<sup>1,2,3</sup>, Derek W. Bunn<sup>3</sup>, Rafal Weron<sup>4</sup>, Jalal Kazempour<sup>5</sup>, Pierre Pinson<sup>6</sup>, Takuji Matsumoto<sup>7</sup>, Peter Palensky<sup>1</sup>, Ricardo Jorge Bessa<sup>8,9</sup>, Qingsong Wen<sup>10,12</sup>, Jochen L. Cremer<sup>1,2</sup></p>
+    <p><strong>Contributors for PriceFM:</strong> Runyao Yu<sup>1,2,11</sup>, Chenhui Gu<sup>1</sup>, Jochen Stiasny<sup>1</sup>, Qingsong Wen<sup>10,12</sup>, Wasim Sarwar Dilov<sup>11</sup>, Lianlian Qi<sup>2,13</sup>, Jochen L. Cremer<sup>1,2</sup></p>
+    <p class="affiliations"><strong>Affiliations:</strong> <sup>1</sup>Delft University of Technology, <sup>2</sup>Austrian Institute of Technology, <sup>3</sup>London Business School, <sup>4</sup>Wrocław University of Science and Technology, <sup>5</sup>Technical University of Denmark, <sup>6</sup>Imperial College London, <sup>7</sup>Institute of Science Tokyo, <sup>8</sup>University of Porto, <sup>9</sup>INESC TEC, <sup>10</sup>University of Oxford, <sup>11</sup>Rimac Technology, <sup>12</sup>Squirrel AI, <sup>13</sup>Technical University of Munich.</p>
+  </div>
+</div></header>
+
+<main>
+<section id="overview" class="first"><div class="wrap">
+  <h2>Overview</h2>
+  <figure><img src="images/model_figure.svg" width="675" height="436" alt="Full model architecture and ablation figure">
+    <figcaption><b>a</b>, Price, lag and lead features enter separate branches, followed by looped cross-attention, temporal mixing and spatial gating to produce probabilistic price forecasts. <b>b</b>, Pinball loss for the full model and four ablations without multiple branches, looped cross-attention, temporal mixing or spatial gating.</figcaption></figure>
+  <figure><img src="images/eda_figure.svg" width="461" height="473" loading="lazy" alt="Full European electricity data figure with temporal patterns, regional maps and an example week">
+    <figcaption>European electricity data across time and regions. <b>a</b>, Daily and seasonal variation in price, generation, power flows, load and net load. <b>b</b>, Regional differences in those features. <b>c</b>, An example week showing the relationship between price and power-system features.</figcaption></figure>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2>Features</h2>
+  <p>PriceFM and PriceFM+ both produce day-ahead price trajectories with uncertainty. PriceFM+ adds cross-border flow information and adapts the fusion of input features through looped cross-attention.</p>
+  <div class="table-scroll"><table class="compare features">
+    <colgroup><col class="c0"><col class="c1"><col class="c2"></colgroup>
+    <thead><tr><th>Feature</th><th>PriceFM</th><th>PriceFM+</th></tr></thead>
+    <tbody><tr><th>Input</th><td>Price, renewable generation and load</td><td>Price, renewable generation, load and cross-border power flows (imports and exports)</td></tr>
+    <tr><th>Output</th><td>Price trajectory with uncertainty</td><td>Price trajectory with uncertainty</td></tr>
+    <tr class="rule"><th>Adaptiveness</th><td>Tune each graph cutoff per region</td><td>Self-adapted through looped cross-attention</td></tr></tbody>
+  </table></div>
+</div></section>
+
+<section id="results"><div class="wrap">
+  <h2>Results</h2>
+  <p>Testing performance across 40 European regions and the three feature cases. Scores average over observed price slots and 273 test days across three folds. All values are in EUR/MWh and lower is better. The lowest value in each column is bold, and the second-lowest is underlined. Statistical significance is assessed with the two-sided Diebold–Mariano test on paired daily losses.</p>
+  <div class="results-case"><h3>Realistic</h3><div class="table-scroll"><table class="num" id="results-realistic"><thead><tr><th>Model</th><th>Pinball loss</th><th>Interval score</th><th>MAE</th><th>RMSE</th></tr></thead><tbody></tbody></table></div></div>
+  <div class="results-case"><h3>TSO</h3><div class="table-scroll"><table class="num" id="results-tso"><thead><tr><th>Model</th><th>Pinball loss</th><th>Interval score</th><th>MAE</th><th>RMSE</th></tr></thead><tbody></tbody></table></div></div>
+  <div class="results-case"><h3>Oracle</h3><div class="table-scroll"><table class="num" id="results-oracle"><thead><tr><th>Model</th><th>Pinball loss</th><th>Interval score</th><th>MAE</th><th>RMSE</th></tr></thead><tbody></tbody></table></div></div>
+</div></section>
+
+<section id="forecasts"><div class="wrap forecast-wrap">
+  <h2>Forecasts</h2>
+  <p>Choose a test day and feature case. Each panel shows one European region over the delivery day. For regions recorded hourly, the archived value is held within its hour. The black line is the observed price. Colored lines are median forecasts, with shaded 10th–90th percentile ranges. Select any combination of the four generic foundation models, PriceFM+, MLP, LSTM, Transformer and three persistence baselines.</p>
+  <div class="controls"><label>Delivery day (UTC)<input id="day" type="date" value="2026-07-23" min="2026-01-01" max="2026-09-30"></label>
+    <label>Feature case<select id="case"><option>Realistic</option><option>TSO</option><option>Oracle</option></select></label></div>
+  <fieldset class="models"><legend>Models</legend><div class="chips" id="models"></div></fieldset>
+  <div class="key" id="key" aria-label="Forecast colors"></div>
+  <p id="status" role="status" aria-live="polite">Loading forecast index…</p>
+  <div class="grid" id="grid" aria-label="Forecasts for 40 European regions"></div>
+</div></section>
+
+<section id="cite"><div class="wrap">
+  <h2>Cite</h2>
+  <p>If you find our work useful or use our forecasts, please cite us.</p>
+  <p><b>PriceFM+</b></p>
+<pre><code>@misc{YuPriceFMPlus2026,
+  title  = {Training Paradigms and Foundation Models for European Electricity Price Forecasting},
+  author = {Runyao Yu and Derek W. Bunn and Rafal Weron and Jalal Kazempour and Pierre Pinson and Takuji Matsumoto and Peter Palensky and Ricardo Jorge Bessa and Qingsong Wen and Jochen L. Cremer},
+  year   = {2026},
+  note   = {Manuscript in preparation}
+}</code></pre>
+  <p><b>PriceFM</b></p>
+<pre><code>@misc{YuPriceFM,
+  title         = {PriceFM: Foundation Model for Probabilistic Electricity Price Forecasting},
+  author        = {Runyao Yu and Chenhui Gu and Jochen Stiasny and Qingsong Wen and Wasim Sarwar Dilov and Lianlian Qi and Jochen L. Cremer},
+  year          = {2026},
+  eprint        = {2508.04875},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CE},
+  url           = {https://arxiv.org/abs/2508.04875}
+}</code></pre>
+  <p style="margin-top:2.5rem">We will keep upgrading PriceFM by adding more features. If you have ideas to improve PriceFM and want to contribute, please contact <a href="mailto:ryu@london.edu">ryu@london.edu</a>. If you are interested in other market price forecasting and want to know more, please visit our website <a href="https://www.deepprior.com" target="_blank" rel="noopener">www.deepprior.com</a>.</p>
+</div></section>
+</main>
+<footer>© PriceFM authors. Contact <a href="mailto:ryu@london.edu">ryu@london.edu</a>.</footer>
+<div id="tip" role="tooltip"></div>
+<script src="site.js?v=20261025" defer></script>
+</body>
+</html>
