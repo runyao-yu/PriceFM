@@ -1,2 +1,0 @@
-1. Go to https://huggingface.co/datasets/RunyaoYu/PriceFM/tree/main
-2. Download "Final.csv" and place it in this folder

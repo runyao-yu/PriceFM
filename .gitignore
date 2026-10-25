@@ -1,3 +1,22 @@
-*.pkl
-*.svg
-__pycache__
+# This research workspace also contains large local data, checkpoints, and drafts.
+# Publish only the installable package and its tutorial from this repository.
+/*
+!.gitignore
+!README.md
+!pyproject.toml
+!src/
+!tutorials/
+
+**/__pycache__/
+**/*.py[cod]
+**/.ipynb_checkpoints/
+**/.DS_Store
+**/Thumbs.db
+**/.env
+**/.env.*
+**/*.egg-info/
+**/build/
+**/dist/
+**/.pytest_cache/
+**/.venv/
+**/venv/

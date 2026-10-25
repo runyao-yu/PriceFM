@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PriceFM_Plus"
+version = "0.1.0"
+description = "Reproducible European electricity price forecasts and data tools"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "pandas>=2.0", "huggingface_hub>=0.30", "tqdm>=4.65"]
+
+[project.optional-dependencies]
+train = ["tensorflow>=2.16"]
+figures = ["matplotlib>=3.8", "pillow>=10", "shapely>=2", "pypdf>=5"]
+chronos = ["torch>=2.4", "chronos-forecasting==2.3.2"]
+timesfm = ["torch>=2.4", "timesfm[torch]==3.0.2"]
+tabpfn = ["torch>=2.4", "tabpfn-time-series==1.3.0"]
+tirex = ["torch>=2.4", "tirex-2==0.3.1", "ninja==1.13.2"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+PriceFM_Plus = ["inference_metadata.json.gz"]
