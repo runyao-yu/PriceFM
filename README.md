@@ -1,6 +1,6 @@
 # PriceFM_Plus
 
-Python tools for reproducing European day-ahead electricity price forecasting results. The public data, model weights, and saved forecasts are hosted in the [European_Foundation_Model_DAM dataset](https://huggingface.co/datasets/RunyaoYu/European_Foundation_Model_DAM). This repository contains the installable code and a [step-by-step Jupyter tutorial](tutorials/PriceFM_Plus_tutorial.ipynb).
+Python tools for reproducing European day-ahead electricity price forecasting results. The public data, model weights, and saved forecasts are hosted in the [European_Foundation_Model_DAM dataset](https://huggingface.co/datasets/RunyaoYu/European_Foundation_Model_DAM). This repository contains the installable code and a [step-by-step Jupyter tutorial](tutorials/PriceFM_Plus_tutorial.ipynb) with saved verification outputs beneath each example.
 
 ## Install
 
